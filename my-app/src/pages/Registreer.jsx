@@ -1,12 +1,13 @@
-// my-app/src/pages/Login.jsx
+// my-app/src/pages/Register.jsx
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Register = () => {
   const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState('')  // Nieuw state voor email
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')  // Wachtwoordbevestiging
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -17,22 +18,24 @@ const Login = () => {
     setLoading(true)
     setError(null)
 
+    if (password !== confirmPassword) {
+      setError('Wachtwoorden komen niet overeen!')
+      setLoading(false)
+      return
+    }
+
     try {
-      // Verstuur zowel de gebruikersnaam als e-mail naar de server
-      const response = await axios.post('http://localhost:3000/login', {
+      // Verstuur de registratiedata naar de server
+      const response = await axios.post('http://localhost:3000/register', {
         username,
-        email,
+        email,  // Verstuur email ook
         password,
       })
 
-      // Als login succesvol is, sla de token op in localStorage
-      const { token } = response.data
-      localStorage.setItem('token', token)
-
-      alert('Je bent succesvol ingelogd!')
-      navigate('/')  // Navigeer naar de homepagina of een andere gewenste pagina
+      alert('Je account is succesvol aangemaakt!')
+      navigate('/login')  // Navigeer naar de inlogpagina
     } catch (err) {
-      setError('Ongeldige gebruikersnaam, e-mail of wachtwoord')
+      setError('Er is iets misgegaan, probeer het opnieuw.')
     } finally {
       setLoading(false)
     }
@@ -41,7 +44,7 @@ const Login = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-4 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold text-center text-gray-700">Inloggen</h2>
+        <h2 className="text-2xl font-semibold text-center text-gray-700">Registreren</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -80,6 +83,18 @@ const Login = () => {
             />
           </div>
 
+          <div>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-600">Bevestig wachtwoord</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Bevestig je wachtwoord"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <button
@@ -87,7 +102,7 @@ const Login = () => {
             disabled={loading}
             className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none"
           >
-            {loading ? 'Bezig...' : 'Inloggen'}
+            {loading ? 'Bezig...' : 'Registreren'}
           </button>
         </form>
       </div>
@@ -95,4 +110,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register
