@@ -1,78 +1,78 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
-function Login() {
-  const [form, setForm] = useState({ username: '', email: '', password: '' })
-  const [message, setMessage] = useState('')
-  const [error, setError] = useState('')
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
+const Login = () => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setMessage('')
-    setError('')
+
+    setLoading(true)
+    setError(null)
 
     try {
-      const res = await axios.post('http://localhost:3000/login', {
-        username: form.username,
-        password: form.password,
+      // Verstuur de logingegevens naar de server
+      const response = await axios.post('http://localhost:3000/login', {
+        username,
+        password,
       })
-      setMessage('Ingelogd! Token: ' + res.data.token)
-      localStorage.setItem('token', res.data.token)
+
+      // Als login succesvol is, sla de token op in localStorage
+      const { token } = response.data
+      localStorage.setItem('token', token)  // Sla de token op in localStorage
+
+      alert('Je bent succesvol ingelogd!')
+      navigate('/')  // Navigeer naar de homepagina of een andere gewenste pagina
     } catch (err) {
-      console.error(err)
-      const errorMsg = err.response?.data?.error || 'Onbekende fout bij inloggen'
-      setError('Fout bij inloggen: ' + errorMsg)
+      setError('Ongeldige gebruikersnaam of wachtwoord')
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-indigo-600">Inloggen</h2>
-
-        {message && <div className="text-green-500 text-center mb-4">{message}</div>}
-        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 space-y-4 bg-white rounded-lg shadow-md">
+        <h2 className="text-2xl font-semibold text-center text-gray-700">Inloggen</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block mb-1">Gebruikersnaam</label>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-600">Gebruikersnaam</label>
             <input
-              name="username"
-              value={form.username}
-              onChange={handleChange}
               type="text"
-              className="w-full border border-gray-300 p-2 rounded"
+              id="username"
+              placeholder="Vul je gebruikersnaam in"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
+
           <div>
-            <label className="block mb-1">Email (optioneel)</label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-600">Wachtwoord</label>
             <input
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              type="email"
-              className="w-full border border-gray-300 p-2 rounded"
-            />
-          </div>
-          <div>
-            <label className="block mb-1">Wachtwoord</label>
-            <input
-              name="password"
-              value={form.password}
-              onChange={handleChange}
               type="password"
-              className="w-full border border-gray-300 p-2 rounded"
+              id="password"
+              placeholder="Vul je wachtwoord in"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
+
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white p-2 rounded hover:bg-indigo-500"
+            disabled={loading}
+            className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none"
           >
-            Inloggen
+            {loading ? 'Bezig...' : 'Inloggen'}
           </button>
         </form>
       </div>

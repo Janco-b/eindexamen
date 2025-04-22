@@ -1,17 +1,22 @@
-const express = require('express')
-const cors = require('cors')
+import dotenv from 'dotenv'
+dotenv.config() // Zorgt dat .env geladen is
+
+import express from 'express'
+import cors from 'cors'
+import { loginRoute } from './routes/login.js'
 
 const app = express()
-const PORT = 3000
+const port = 3000
 
 app.use(cors())
 app.use(express.json())
 
-// Basic route to test the server
-app.get('/', (req, res) => {
-  res.send('Backend is working!')
-})
+// Controleer of de env geladen is
+console.log('DB_USER:', process.env.DB_USER)
+console.log('JWT_SECRET:', process.env.JWT_SECRET)
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`)
+app.use('/login', loginRoute)
+
+app.listen(port, () => {
+  console.log(`Server draait op http://localhost:${port}`)
 })

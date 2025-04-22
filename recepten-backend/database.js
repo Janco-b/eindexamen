@@ -1,11 +1,12 @@
 import mysql from 'mysql2/promise'
+import dotenv from 'dotenv'
+dotenv.config() // heel belangrijk
 
-// Maak verbinding met de MySQL database
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root', // Je MySQL-gebruiker
-  password: 'password', // Je MySQL-wachtwoord
-  database: 'recepten'  // Je database naam
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
 })
 
 export async function getUserByUsername(username) {
