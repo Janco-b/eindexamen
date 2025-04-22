@@ -31,7 +31,7 @@ function App() {
       {/* Routes met layout (Header + styling) */}
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/recipes" element={<Recipes />} />
+        <Route path="/recipes" element={<Recipes recipes={recipes} />} /> {/* Hey Recipes, hier is een prompt die recipes heet, gebruiken */}
         <Route path="/create-recipe" element={<CreateRecipeForm />} />
         {/* hier kun je later meer routes toevoegen, zoals recepten, contact, etc. */}
       </Route>

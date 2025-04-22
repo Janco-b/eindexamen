@@ -1,6 +1,40 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../App.css'
 
 function CreateRecipeForm() {
+  const navigate = useNavigate() //Voor het terug navigeren na submit
+
+  // Alle form data wordt hierin opgeslagen
+  const [formData, setFormData] = useState({
+    naamRecept: '', //eigenschap waar naamRecept in komt etc.
+    categorie: '',
+    ingrediënten: '',
+    stappenplan: '',
+    afbeelding: '', //base64 gebruiken om afbeelding naar een string op te slaan
+    auteur: ''
+  })
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0]; //Ontvang het bestand dat is geselecteerd
+    const reader = new FileReader(); //Zet om naar base64 string, Class die gebruikt wordt om het te lezen
+  
+    //Daarna wordt deze functie aangeroepen
+    reader.onloadend = () => { //callback
+      const base64String = reader.result; //Dit is nu de base64 string
+  
+      //Update de state met de base64 string
+      setFormData({
+        ...formData,
+        afbeelding: base64String, //Sla de base64 string op in de formData state
+      });
+    };
+  
+    //Laat de reader het bestand lezen en converteer het naar een base64 string
+    //methode van FileReader
+    reader.readAsDataURL(file);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
   <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
@@ -12,7 +46,7 @@ function CreateRecipeForm() {
           id="naamRecept" 
           type="text" 
           name="naamRecept" 
-          placeholder="Enter the recipe name"
+          placeholder="Voeg de naam van een Recept toe"
           className="mt-1 p-2 border border-gray-300 rounded-md"
         />
       </div>
@@ -38,7 +72,7 @@ function CreateRecipeForm() {
           id="ingrediënten"
           name="ingrediënten"
           rows="4"
-          placeholder="List the ingredients"
+          placeholder="Ingredienten"
           className="mt-1 p-2 border border-gray-300 rounded-md"
         />
       </div>
@@ -49,7 +83,7 @@ function CreateRecipeForm() {
           id="stappenplan"
           name="stappenplan"
           rows="4"
-          placeholder="Describe the preparation steps"
+          placeholder="Stappen Plan"
           className="mt-1 p-2 border border-gray-300 rounded-md"
         />
       </div>
@@ -60,6 +94,7 @@ function CreateRecipeForm() {
           id="afbeelding"
           type="file"
           name="afbeelding"
+          onChange={handleFileChange} //functie om het bestand te verwerken naar bas64
           className="mt-1 p-2 border border-gray-300 rounded-md"
         />
       </div>
@@ -70,7 +105,7 @@ function CreateRecipeForm() {
           id="auteur"
           type="text"
           name="auteur"
-          placeholder="Enter your name"
+          placeholder="Auteur naam"
           className="mt-1 p-2 border border-gray-300 rounded-md"
         />
       </div>

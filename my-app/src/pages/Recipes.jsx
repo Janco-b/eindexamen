@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import '../App.css'
 
-function Recipes() {
+function Recipes({ recipes }) { {/* "Geef mij die Recipe prompt" */}
     return (
         <div className="space-y-8">
 
@@ -31,16 +31,22 @@ function Recipes() {
 
         {/* Recipe List */}
         <div className="flex flex-col gap-6">
-          <div className="bg-white rounded-xl shadow p-4 flex flex-col sm:flex-row gap-4">
-            <div className="w-full sm:w-48 h-32 bg-gray-200 rounded-lg overflow-hidden">
+        {recipes.length === 0 ? (
+          <p>Recepten laden...</p> // Dit wordt weergegeven als de recepten nog niet geladen zijn
+        ) : (
+          recipes.map((recipe) => (
+            <div key={recipe.id} className="bg-white rounded-xl shadow p-4 flex flex-col sm:flex-row gap-4">
+              <div className="w-full sm:w-48 h-32 bg-gray-200 rounded-lg overflow-hidden">
+                {/* Hier kun je afbeeldingen toevoegen als je wilt */}
+              </div>
+              <div className="flex-1">
+                <h2 className="text-xl font-semibold text-gray-900">{recipe.title}</h2>
+                <p className="text-gray-600 mt-1">{recipe.category}</p>
+              </div>
             </div>
-
-            <div className="flex-1">
-              <h2 className="text-xl font-semibold text-gray-900">{recipe.title}</h2>
-                <p className="text-gray-600 mt-1">{recipe.description}</p>
-            </div>
-          </div>
-        </div>
+          ))
+        )}
+      </div>
       </div>
     )
   }
