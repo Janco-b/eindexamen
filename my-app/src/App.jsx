@@ -17,7 +17,7 @@ function Home() {
 
 function App() {
   const [recipes, setRecipes] = useState([]) // Recipes storen in de array
-
+ 
   // Gegevens ophalen van het JSON-bestand wanneer de component wordt geladen
   useEffect(() => {
     fetch('/recipes.json')

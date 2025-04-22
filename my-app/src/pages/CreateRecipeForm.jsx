@@ -14,7 +14,7 @@ function CreateRecipeForm() {
     afbeelding: '', //base64 gebruiken om afbeelding naar een string op te slaan
     auteur: ''
   })
-
+ 
   const handleFileChange = (e) => {
     const file = e.target.files[0]; //Ontvang het bestand dat is geselecteerd
     const reader = new FileReader(); //Zet om naar base64 string, Class die gebruikt wordt om het te lezen

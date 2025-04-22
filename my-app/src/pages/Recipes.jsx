@@ -13,7 +13,7 @@ function Recipes({ recipes }) { {/* "Geef mij die Recipe prompt" */}
           </button>
         </Link>
       </div>
-
+ 
         {/* Page Header */}
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-900">Alle Recepten</h1>
