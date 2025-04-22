@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../App.css'
 
-function CreateRecipeForm() {
+function CreateRecipeForm({ onAddRecipe }) {
   const navigate = useNavigate() //Voor het terug navigeren na submit
 
   // Alle form data wordt hierin opgeslagen
@@ -48,6 +48,9 @@ function CreateRecipeForm() {
   
     //Stuur data naar console
     console.log('Form submitted:', formData);
+
+    //Geef het recept door richting Recipes.jsx
+    onAddRecipe(formData);
 
     navigate('/recipes'); //Stuur terug naar Recipes.jsx
   };

@@ -30,24 +30,25 @@ function Recipes({ recipes }) { {/* "Geef mij die Recipe prompt" */}
         </div>
 
         {/* Recipe List */}
-        <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6">
         {recipes.length === 0 ? (
           <p>Recepten laden...</p> // Dit wordt weergegeven als de recepten nog niet geladen zijn
         ) : (
-          recipes.map((recipe) => (
-            <div key={recipe.id} className="bg-white rounded-xl shadow p-4 flex flex-col sm:flex-row gap-4">
+          recipes.map((recipe, index) => (
+            <div key={index} className="bg-white rounded-xl shadow p-4 flex flex-col sm:flex-row gap-4">
               <div className="w-full sm:w-48 h-32 bg-gray-200 rounded-lg overflow-hidden">
-                {/* Hier kun je afbeeldingen toevoegen als je wilt */}
+                {/* Toon de afbeelding als base64 string */}
+                <img src={recipe.afbeelding} alt={recipe.naamRecept} className="w-full h-full object-cover" />
               </div>
               <div className="flex-1">
-                <h2 className="text-xl font-semibold text-gray-900">{recipe.title}</h2>
-                <p className="text-gray-600 mt-1">{recipe.category}</p>
+                <h2 className="text-xl font-semibold text-gray-900">{recipe.naamRecept}</h2>
+                <p className="text-gray-600 mt-1">{recipe.categorie}</p>
               </div>
             </div>
           ))
         )}
       </div>
-      </div>
+    </div>
     )
   }
   
