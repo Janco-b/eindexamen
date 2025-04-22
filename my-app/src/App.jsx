@@ -1,17 +1,29 @@
-import { useState } from 'react'
 import './App.css'
-import Header from './components/Header'
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout'
+import Login from './pages/Login'
+
+function Home() {
+  return (
+    <div>
+      <h1 className="text-3xl font-bold mb-4">Welkom bij je receptenwebsite!</h1>
+      <p className="text-lg">Hier kun je al je favoriete recepten bewaren en bekijken.</p>
+    </div>
+  )
+}
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-800">
-      <Header />
+    <Routes>
+      {/* Routes met layout (Header + styling) */}
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        {/* hier kun je later meer routes toevoegen, zoals recepten, contact, etc. */}
+      </Route>
 
-      <main className="p-6">
-        <h1 className="text-3xl font-bold mb-4">Welkom bij je receptenwebsite!</h1>
-        {/* Hier komt je receptenlijst straks */}
-      </main>
-    </div>
+      {/* Login zonder layout */}
+      <Route path="/login" element={<Login />} />
+    </Routes>
   )
 }
 
