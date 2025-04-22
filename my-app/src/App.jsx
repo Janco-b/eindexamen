@@ -15,16 +15,13 @@ function Home() {
 function App() {
   return (
     <Routes>
-      {/* Routes met layout (Header + styling) */}
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
-        {/* hier kun je later meer routes toevoegen, zoals recepten, contact, etc. */}
       </Route>
-
-      {/* Login zonder layout */}
       <Route path="/login" element={<Login />} />
     </Routes>
   )
 }
 
 export default App
+
