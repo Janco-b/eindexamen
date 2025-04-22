@@ -15,6 +15,14 @@ function CreateRecipeForm() {
     auteur: ''
   })
  
+  const handleChange = (e) => {
+    const { name, value } = e.target; //Verkrijg de naam en de waarde van het formulier
+    setFormData((prevFormData) => ({ //Werk de state bij
+      ...prevFormData, //Behoud bestaande data
+      [name]: value, //Update het juiste veld in formData
+    }));
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0]; //Ontvang het bestand dat is geselecteerd
     const reader = new FileReader(); //Zet om naar base64 string, Class die gebruikt wordt om het te lezen
@@ -35,18 +43,29 @@ function CreateRecipeForm() {
     reader.readAsDataURL(file);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault(); //Voorkom dat de pagina opnieuw laadt bij submit
+  
+    //Stuur data naar console
+    console.log('Form submitted:', formData);
+
+    navigate('/recipes'); //Stuur terug naar Recipes.jsx
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
   <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
     <h2 className="text-2xl font-bold mb-6 text-center text-indigo-600">Create Recipe</h2>
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={handleSubmit}>
       <div className="flex flex-col">
         <label htmlFor="naamRecept" className="text-sm font-medium text-gray-700">Naam recept</label>
         <input 
-          id="naamRecept" 
-          type="text" 
-          name="naamRecept" 
-          placeholder="Voeg de naam van een Recept toe"
+          id="naamRecept"
+          type="text"
+          name="naamRecept"
+          value={formData.naamRecept} //Bind de waarde van dit veld aan formData
+          onChange={handleChange} //Bij elke wijziging wordt handleChange aangeroepen
+          placeholder="Enter the recipe name"
           className="mt-1 p-2 border border-gray-300 rounded-md"
         />
       </div>
@@ -56,6 +75,8 @@ function CreateRecipeForm() {
         <select 
           id="categorie" 
           name="categorie" 
+          value={formData.categorie} //Bind de waarde van dit veld aan formData
+          onChange={handleChange} //Bij elke wijziging wordt handleChange aangeroepen
           className="mt-1 p-2 border border-gray-300 rounded-md"
         >
           <option value="Vlees">Vlees</option>
@@ -72,6 +93,8 @@ function CreateRecipeForm() {
           id="ingrediënten"
           name="ingrediënten"
           rows="4"
+          value={formData.ingrediënten} //Bind de waarde van dit veld aan formData
+          onChange={handleChange} //Bij elke wijziging wordt handleChange aangeroepen
           placeholder="Ingredienten"
           className="mt-1 p-2 border border-gray-300 rounded-md"
         />
@@ -83,6 +106,8 @@ function CreateRecipeForm() {
           id="stappenplan"
           name="stappenplan"
           rows="4"
+          value={formData.stappenplan} //Bind de waarde van dit veld aan formData
+          onChange={handleChange} //Bij elke wijziging wordt handleChange aangeroepen
           placeholder="Stappen Plan"
           className="mt-1 p-2 border border-gray-300 rounded-md"
         />
@@ -105,6 +130,8 @@ function CreateRecipeForm() {
           id="auteur"
           type="text"
           name="auteur"
+          value={formData.auteur} //Bind de waarde van dit veld aan formData
+          onChange={handleChange} //Bij elke wijziging wordt handleChange aangeroepen
           placeholder="Auteur naam"
           className="mt-1 p-2 border border-gray-300 rounded-md"
         />
