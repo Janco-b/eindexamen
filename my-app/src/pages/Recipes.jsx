@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom';
 import '../App.css'
+import { useState } from 'react';
 
 function Recipes({ recipes }) { {/* "Geef mij die Recipe property" */}
+
+    const [searchterm, setSearchterm] = useState('');
+
+    const filteredRecipes = recipes.filter((recipe) =>
+      recipe.naamRecept.toLowerCase().includes(searchterm.toLowerCase())
+    );
+    
     return (
         <div className="space-y-8">
 
@@ -25,6 +33,8 @@ function Recipes({ recipes }) { {/* "Geef mij die Recipe property" */}
           <input
             type="text"
             placeholder="Search recipes..."
+            value={searchterm}
+            onChange={(e) => setSearchterm(e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
@@ -34,7 +44,7 @@ function Recipes({ recipes }) { {/* "Geef mij die Recipe property" */}
         {recipes.length === 0 ? (
           <p>Recepten laden...</p> //Dit wordt weergegeven als de recepten nog niet geladen zijn
         ) : (
-          recipes.map((recipe, index) => (
+          filteredRecipes.map((recipe, index) => (
             <div key={index} className="bg-white rounded-xl shadow p-4 flex flex-col sm:flex-row gap-4">
               <div className="w-full sm:w-48 h-32 bg-gray-200 rounded-lg overflow-hidden">
                 {/* Toon de afbeelding als base64 string */}

@@ -66,6 +66,7 @@ function CreateRecipeForm({ onAddRecipe }) {
           id="naamRecept"
           type="text"
           name="naamRecept"
+          required
           value={formData.naamRecept} //Bind de waarde van dit veld aan formData
           onChange={handleChange} //Bij elke wijziging wordt handleChange aangeroepen
           placeholder="Enter the recipe name"
@@ -78,6 +79,7 @@ function CreateRecipeForm({ onAddRecipe }) {
         <select 
           id="categorie" 
           name="categorie" 
+          required
           value={formData.categorie} //Bind de waarde van dit veld aan formData
           onChange={handleChange} //Bij elke wijziging wordt handleChange aangeroepen
           className="mt-1 p-2 border border-gray-300 rounded-md"
@@ -95,6 +97,7 @@ function CreateRecipeForm({ onAddRecipe }) {
         <textarea
           id="ingrediënten"
           name="ingrediënten"
+          required
           rows="4"
           value={formData.ingrediënten} //Bind de waarde van dit veld aan formData
           onChange={handleChange} //Bij elke wijziging wordt handleChange aangeroepen
@@ -108,6 +111,7 @@ function CreateRecipeForm({ onAddRecipe }) {
         <textarea
           id="stappenplan"
           name="stappenplan"
+          required
           rows="4"
           value={formData.stappenplan} //Bind de waarde van dit veld aan formData
           onChange={handleChange} //Bij elke wijziging wordt handleChange aangeroepen
@@ -122,6 +126,7 @@ function CreateRecipeForm({ onAddRecipe }) {
           id="afbeelding"
           type="file"
           name="afbeelding"
+          required
           onChange={handleFileChange} //functie om het bestand te verwerken naar bas64
           className="mt-1 p-2 border border-gray-300 rounded-md"
         />
@@ -133,6 +138,7 @@ function CreateRecipeForm({ onAddRecipe }) {
           id="auteur"
           type="text"
           name="auteur"
+          required
           value={formData.auteur} //Bind de waarde van dit veld aan formData
           onChange={handleChange} //Bij elke wijziging wordt handleChange aangeroepen
           placeholder="Auteur naam"
