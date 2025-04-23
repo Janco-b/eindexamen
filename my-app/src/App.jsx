@@ -4,6 +4,7 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import Register from './pages/Registreer'
 import Login from './pages/Login'
+import Account from './pages/Account'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="account" element={<Account />} />
         </Route>
       </Routes>
     </Router>

@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const navigate = useNavigate()
 
   // Controleer of er een token in localStorage is en update de state
   useEffect(() => {
@@ -12,7 +13,8 @@ function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem('token')  // Verwijder het token uit localStorage
-    setIsLoggedIn(false)  // Update de state zodat de knop meteen verandert
+    setIsLoggedIn(false)
+    navigate('/')  // Update de state zodat de knop meteen verandert
   }
 
   return (
@@ -24,9 +26,11 @@ function Header() {
           <ul className="hidden md:flex gap-6 text-gray-700 font-medium">
             <li><Link to="/" className="hover:text-indigo-500">Home</Link></li>
             <li><Link to="/recepten" className="hover:text-indigo-500">Recepten</Link></li>
-            <li><Link to="/contact" className="hover:text-indigo-500">Contact</Link></li>
             {!isLoggedIn && (
               <li><Link to="/login" className="hover:text-indigo-500">Inloggen</Link></li>
+            )}
+            {isLoggedIn && (
+              <li><Link to="/account" className="hover:text-indigo-500">Account</Link></li>
             )}
             {isLoggedIn && (
               <li><button onClick={handleLogout} className="hover:text-indigo-500">Uitloggen</button></li>

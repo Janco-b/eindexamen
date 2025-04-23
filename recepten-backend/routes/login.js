@@ -23,9 +23,11 @@ router.post('/', async (req, res) => {
     }
 
     // Genereer JWT-token
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    })
+    const token = jwt.sign(
+      { userId: user.id, username: user.username, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    )
 
     res.status(200).json({ message: 'Ingelogd!', token })
   } catch (err) {
