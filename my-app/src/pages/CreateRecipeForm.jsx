@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../App.css'
 
-function CreateRecipeForm({ onAddRecipe }) {
+function CreateRecipeForm({ onAddRecipe }) { //gebruik onAddRecipe property
   const navigate = useNavigate() //Voor het terug navigeren na submit
 
   // Alle form data wordt hierin opgeslagen
@@ -59,7 +59,7 @@ function CreateRecipeForm({ onAddRecipe }) {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
   <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
     <h2 className="text-2xl font-bold mb-6 text-center text-indigo-600">Create Recipe</h2>
-    <form className="space-y-4" onSubmit={handleSubmit}>
+    <form className="space-y-4" onSubmit={handleSubmit}> {/* Roep handleSubmit aan */}
       <div className="flex flex-col">
         <label htmlFor="naamRecept" className="text-sm font-medium text-gray-700">Naam recept</label>
         <input 

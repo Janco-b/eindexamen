@@ -30,7 +30,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/recipes" element={<Recipes recipes={recipes} />} /> {/* Hey Recipes, hier is een property die recipes heet, gebruiken */}
         <Route path="/create-recipe" element={<CreateRecipeForm onAddRecipe={handleAddRecipe} />} />
-        <Route path="/recipes/:id" element={<ViewRecipes recipes={recipes} />} />
+        <Route path="/recipes/:id" element={<ViewRecipes recipes={recipes} />} /> {/* Route van het recept id */}
       </Route>
 
       {/* Login zonder layout */}

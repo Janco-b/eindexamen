@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 import '../App.css'
 import { useState } from 'react';
 
-function Recipes({ recipes }) { {/* "Geef mij die Recipe property" */}
+function Recipes({ recipes }) { {/* "Geef mij Recipe property" */}
 
-    const [searchterm, setSearchterm] = useState('');
+    const [searchterm, setSearchterm] = useState(''); //state voor searchterm
 
     const filteredRecipes = recipes.filter((recipe) =>
       recipe.naamRecept.toLowerCase().includes(searchterm.toLowerCase())
-    );
+    ); //filter de recepten zodat alleen de recepten wordne getoond met de zoekterm en dat het hoofdlettergevoellig is
     
     return (
         <div className="space-y-8">
@@ -35,6 +35,7 @@ function Recipes({ recipes }) { {/* "Geef mij die Recipe property" */}
             placeholder="Search recipes..."
             value={searchterm}
             onChange={(e) => setSearchterm(e.target.value)}
+            //update de zoekterm iedere keer dat je iets typt
             className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
