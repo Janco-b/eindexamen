@@ -1,7 +1,10 @@
 import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
+import Home from './pages/Home'
+import Register from './pages/Registreer'
 import Login from './pages/Login'
+import Account from './pages/Account'
 import Recipes from './pages/Recipes'
 import CreateRecipeForm from './pages/CreateRecipeForm'
 import { useState, useEffect } from 'react'
@@ -24,20 +27,22 @@ function App() {
   };
 
   return (
+
     <Routes>
       {/* Routes met layout (Header + styling) */}
-      <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
         <Route path="/recipes" element={<Recipes recipes={recipes} />} /> {/* Hey Recipes, hier is een property die recipes heet, gebruiken */}
         <Route path="/create-recipe" element={<CreateRecipeForm onAddRecipe={handleAddRecipe} />} />
         <Route path="/recipes/:id" element={<ViewRecipes recipes={recipes} />} /> {/* Route van het recept id */}
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="account" element={<Account />} />
       </Route>
 
-      {/* Login zonder layout */}
-      <Route path="/login" element={<Login />} />
-
-      {/* Recipes zonder layout */}
     </Routes>
+
+
   )
 }
 
