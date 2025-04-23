@@ -25,7 +25,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
+      <Route index element={<Home recipes={recipes} />} />
         <Route path="/recipes" element={<Recipes recipes={recipes} />} />
         <Route path="/create-recipe" element={<CreateRecipeForm onAddRecipe={handleAddRecipe} />} />
         <Route path="/recipes/:id" element={<ViewRecipes recipes={recipes} onDeleteRecipe={handleDeleteRecipe} />} />

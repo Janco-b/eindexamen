@@ -12,9 +12,9 @@ function Header() {
   }, [])  // Dit zorgt ervoor dat de controle alleen bij de eerste render wordt uitgevoerd
 
   const handleLogout = () => {
-    localStorage.removeItem('token')  // Verwijder het token uit localStorage
-    setIsLoggedIn(false)
-    navigate('/')  // Update de state zodat de knop meteen verandert
+    localStorage.removeItem('token');  // Verwijder het token uit localStorage
+    setIsLoggedIn(false);
+    window.location.reload();  // Forceer een volledige herlading van de pagina
   }
 
   return (
