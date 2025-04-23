@@ -28,6 +28,18 @@ const Account = () => {
             <h2 className="text-lg font-medium text-gray-700">E-mailadres</h2>
             <p className="text-gray-900">{user.email}</p>
           </div>
+
+          {user.username === 'Admin' && (
+            <div>
+              <h2 className="text-lg font-medium text-gray-700">Admin Acties</h2>
+              <button
+                className="mt-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                onClick={() => alert('Admin actie uitgevoerd!')}
+              >
+                Admin Knop
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <p className="text-gray-500">Gebruikersgegevens worden geladen...</p>
