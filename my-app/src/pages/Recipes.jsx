@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import '../App.css'
 
-function Recipes({ recipes }) { {/* "Geef mij die Recipe prompt" */}
+function Recipes({ recipes }) { {/* "Geef mij die Recipe property" */}
     return (
         <div className="space-y-8">
 
@@ -32,7 +32,7 @@ function Recipes({ recipes }) { {/* "Geef mij die Recipe prompt" */}
         {/* Recipe List */}
       <div className="flex flex-col gap-6">
         {recipes.length === 0 ? (
-          <p>Recepten laden...</p> // Dit wordt weergegeven als de recepten nog niet geladen zijn
+          <p>Recepten laden...</p> //Dit wordt weergegeven als de recepten nog niet geladen zijn
         ) : (
           recipes.map((recipe, index) => (
             <div key={index} className="bg-white rounded-xl shadow p-4 flex flex-col sm:flex-row gap-4">
@@ -43,6 +43,12 @@ function Recipes({ recipes }) { {/* "Geef mij die Recipe prompt" */}
               <div className="flex-1">
                 <h2 className="text-xl font-semibold text-gray-900">{recipe.naamRecept}</h2>
                 <p className="text-gray-600 mt-1">{recipe.categorie}</p>
+
+                <Link to={`/recipes/${index}`}>
+                  <button className="mt-2 px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-500">
+                    Bekijk Recept
+                  </button>
+                </Link>
               </div>
             </div>
           ))

@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Recipes from './pages/Recipes'
 import CreateRecipeForm from './pages/CreateRecipeForm'
 import { useState, useEffect } from 'react'
+import ViewRecipes from './pages/ViewRecipes';
 
 function Home() {
   return (
@@ -22,22 +23,14 @@ function App() {
     setRecipes((prevRecipes) => [...prevRecipes, newRecipe]);//Voeg het nieuwe recept toe aan de lijst
   };
 
-  // //Gegevens ophalen van het JSON-bestand wanneer de component wordt geladen
-  // useEffect(() => {
-  //   fetch('/recipes.json')
-  //     .then((response) => response.json()) // Zet het om naar JSON
-  //     .then((data) => setRecipes(data)) // Sla de recepten op in de data
-  //     .catch((error) => console.error('Fout bij het laden van recepten:', error)) // Foutmelding
-  // }, []) // Haalt de data op bij de eerste render
-
   return (
     <Routes>
       {/* Routes met layout (Header + styling) */}
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/recipes" element={<Recipes recipes={recipes} />} /> {/* Hey Recipes, hier is een prompt die recipes heet, gebruiken */}
+        <Route path="/recipes" element={<Recipes recipes={recipes} />} /> {/* Hey Recipes, hier is een property die recipes heet, gebruiken */}
         <Route path="/create-recipe" element={<CreateRecipeForm onAddRecipe={handleAddRecipe} />} />
-        {/* hier kun je later meer routes toevoegen, zoals recepten, contact, etc. */}
+        <Route path="/recipes/:id" element={<ViewRecipes recipes={recipes} />} />
       </Route>
 
       {/* Login zonder layout */}
