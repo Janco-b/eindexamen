@@ -27,7 +27,6 @@ function Header() {
             <li><Link to="/" className="hover:text-indigo-500">Home</Link></li>
 
             <li><Link to="/recipes" className="hover:text-indigo-500">Recepten</Link></li>
-            <li><Link to="/recepten" className="hover:text-indigo-500">Recepten</Link></li>
             {!isLoggedIn && (
               <li><Link to="/login" className="hover:text-indigo-500">Inloggen</Link></li>
             )}
