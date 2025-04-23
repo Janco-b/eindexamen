@@ -1,16 +1,15 @@
-import Header from "./Header"
-import { Outlet } from "react-router-dom"
+import { Outlet } from 'react-router-dom'
+import Header from './Header'
 
 function Layout() {
   return (
-    <div className="bg-gray-50 min-h-screen text-gray-800">
+    <div className="min-h-screen bg-gray-100 text-gray-800">
       <Header />
-      <main className="px-4 sm:px-6 lg:px-8 py-10 max-w-5xl mx-auto">
-        <Outlet />
+      <main className="p-6">
+        <Outlet /> {/* Dit is waar de content van de routes komt */}
       </main>
     </div>
   )
 }
 
 export default Layout
-
